@@ -11,12 +11,12 @@ namespace DeliveryService.Api.Controllers
     [ApiController]
     public class PathsController : ControllerBase
     {
-        private readonly IPathRepository _pathsRepository;
+        private readonly IPathRepository _pathRepository;
         private readonly IPointRepository _pointRepository;
 
-        public PathsController(IPathRepository pathsRepository, IPointRepository pointRepository)
+        public PathsController(IPathRepository pathRepository, IPointRepository pointRepository)
         {
-            _pathsRepository = pathsRepository;
+            _pathRepository = pathRepository;
             _pointRepository = pointRepository;
         }
 
@@ -26,7 +26,7 @@ namespace DeliveryService.Api.Controllers
         {
             try
             {
-                List<Path> paths = _pathsRepository.GetAll().ToList();
+                List<Path> paths = _pathRepository.GetAll().ToList();
 
                 paths.ForEach(path =>
                 {
@@ -48,7 +48,7 @@ namespace DeliveryService.Api.Controllers
         {
             try
             {
-                Path path = _pathsRepository.GetById(id);
+                Path path = _pathRepository.GetById(id);
 
                 if (path == null)
                 {
@@ -70,14 +70,14 @@ namespace DeliveryService.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult PutPath([FromRoute] int id, [FromBody] Path path)
         {
-            if (id != path.PathId || _pathsRepository.GetById(id) != null)
+            if (id != path.PathId || _pathRepository.GetById(id) != null)
             {
                 return BadRequest();
             }
 
             try
             {
-                _pathsRepository.Create(path);
+                _pathRepository.Create(path);
                 return Accepted();
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace DeliveryService.Api.Controllers
         [HttpPost]
         public IActionResult PostPath([FromBody] Path path)
         {
-            bool exists = _pathsRepository
+            bool exists = _pathRepository
                 .Find(p => p.PathId == path.PathId || (p.Destiny.PointId == path.Destiny.PointId && p.Origin.PointId == path.Origin.PointId))
                 .Any();
 
@@ -101,7 +101,7 @@ namespace DeliveryService.Api.Controllers
 
             try
             {
-                _pathsRepository.Create(path);
+                _pathRepository.Create(path);
                 return Accepted();
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace DeliveryService.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePath([FromRoute] int id)
         {
-            Path path = _pathsRepository.GetById(id);
+            Path path = _pathRepository.GetById(id);
 
             if (path == null)
             {
@@ -123,7 +123,7 @@ namespace DeliveryService.Api.Controllers
 
             try
             {
-                _pathsRepository.Delete(path);
+                _pathRepository.Delete(path);
                 return Accepted();
             }
             catch (Exception ex)

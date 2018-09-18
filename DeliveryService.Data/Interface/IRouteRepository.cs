@@ -4,8 +4,6 @@ namespace DeliveryService.Data.Interface
 {
     public interface IRouteRepository : IRepository<Route>
     {
-        int GetTotalCost();
 
-        int GetTotalTime();
     }
 }

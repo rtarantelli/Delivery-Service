@@ -8,24 +8,14 @@ namespace DeliveryService.Data.Model
         [Key]
         public int PathId { get; set; }
 
-        [NotMapped]
-        public int OriginId { get; set; }
-
         [Required]
         [ForeignKey("OriginId")]
         public Point Origin { get; set; }
-
-        [NotMapped]
-        public int DestinyId { get; set; }
+        public int OriginId { get; set; }
 
         [Required]
         [ForeignKey("DestinyId")]
         public Point Destiny { get; set; }
-
-        [Required]
-        public int Cost { get; set; }
-
-        [Required]
-        public int Time { get; set; }
+        public int DestinyId { get; set; }
     }
 }
