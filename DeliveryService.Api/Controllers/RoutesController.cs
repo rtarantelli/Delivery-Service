@@ -31,17 +31,55 @@ namespace DeliveryService.Api.Controllers
         [HttpGet("{origin}/{destiny}/{type}")]
         public IActionResult GetRoutes([FromRoute] string origin, [FromRoute] string destiny, [FromRoute] char type)
         {
-            var routes = _routes.FindAll(a => a.Path.Origin.Name == origin);
+            try
+            {
+                GetRoutesResult(origin, destiny, type);
 
-            foreach (var item in routes)
+                return Ok(Routes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        private void GetRoutesResult(string origin, string destiny, char type)
+        {
+            List<Route> routes = GetRoutesWithOriginAndDestiny(origin, destiny);
+
+            List<Collection> collections = new List<Collection>();
+
+            foreach (Route item in routes)
             {
                 Routes.Add(item);
 
-                NextRoute(item, destiny);
+                GetNextRoute(item, destiny);
+
+                if (Routes.Any(a => a.Path.Destiny.Name == destiny))
+                {
+                    collections.Add(new Collection() { Routes = Routes });
+                }
+
+                Routes = new List<Route>();
             }
 
-            return Ok(Routes);
+            GetResultByType(type, collections);
         }
+
+        private void GetResultByType(char type, List<Collection> collections)
+        {
+            if (type == 'C')
+                Routes = collections.OrderBy(a => a.TotalCost()).FirstOrDefault().Routes;
+
+            if (type == 'T')
+                Routes = collections.OrderBy(a => a.TotalTime()).FirstOrDefault().Routes;
+
+            if (type == 'S')
+                Routes = collections.OrderBy(a => a.Routes.Count).FirstOrDefault().Routes;
+        }
+
+        private List<Route> GetRoutesWithOriginAndDestiny(string origin, string destiny) =>
+            _routes.FindAll(a => a.Path.Origin.Name == origin).FindAll(a => a.Path.Destiny.Name != destiny);
 
         private List<Route> BuildRutes()
         {
@@ -58,11 +96,11 @@ namespace DeliveryService.Api.Controllers
             return routes;
         }
 
-        private Route NextRoute(Route route, string destiny)
+        private Route GetNextRoute(Route route, string destiny)
         {
-            var routes = _routes.FindAll(r => r.Path.OriginId == route.Path.DestinyId);
+            List<Route> routes = _routes.FindAll(r => r.Path.OriginId == route.Path.DestinyId);
 
-            foreach (var item in routes)
+            foreach (Route item in routes)
             {
                 Routes.Add(item);
 
@@ -71,10 +109,19 @@ namespace DeliveryService.Api.Controllers
                     return null;
                 }
 
-                return NextRoute(item, destiny);
+                return GetNextRoute(item, destiny);
             }
 
             return null;
         }
+    }
+
+    internal class Collection
+    {
+        public List<Route> Routes { get; set; }
+
+        public int TotalCost() => Routes.Sum(a => a.Cost);
+
+        public int TotalTime() => Routes.Sum(a => a.Time);
     }
 }

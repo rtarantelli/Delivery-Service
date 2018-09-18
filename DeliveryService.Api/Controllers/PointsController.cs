@@ -75,11 +75,11 @@ namespace DeliveryService.Api.Controllers
             }
         }
 
-        // POST: api/Points/5
+        // POST: api/Points
         [HttpPost]
         public IActionResult PostPoint([FromBody] Point point)
         {
-            if (_pointRepository.Find(p => p.PointId == point.PointId || p.Name == point.Name).Any())
+            if (_pointRepository.Find(p => p == point).Any())
             {
                 return BadRequest();
             }

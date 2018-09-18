@@ -86,15 +86,11 @@ namespace DeliveryService.Api.Controllers
             }
         }
 
-        // POST: api/Paths/5
+        // POST: api/Paths
         [HttpPost]
         public IActionResult PostPath([FromBody] Path path)
         {
-            bool exists = _pathRepository
-                .Find(p => p.PathId == path.PathId || (p.Destiny.PointId == path.Destiny.PointId && p.Origin.PointId == path.Origin.PointId))
-                .Any();
-
-            if (exists)
+            if (_pathRepository.Find(p => p == path).Any())
             {
                 return BadRequest();
             }
