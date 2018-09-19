@@ -17,8 +17,7 @@ namespace DeliveryService.Data.Model
         [Required]
         public int PathId { get; set; }
 
-        [Required]
-        [ForeignKey("PathId")]
+        [Required, ForeignKey("PathId")]
         public Path Path { get; set; }
     }
 }

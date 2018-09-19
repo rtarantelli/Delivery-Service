@@ -1,5 +1,6 @@
 ﻿using DeliveryService.Data.Interface;
 using DeliveryService.Data.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,7 @@ using System.Linq;
 
 namespace DeliveryService.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]"), ApiController, Authorize(Roles = "Administrator")]
     public class RoutesController : ControllerBase
     {
         private readonly IPathRepository _pathRepository;
@@ -27,8 +27,15 @@ namespace DeliveryService.Api.Controllers
             _routes = BuildRutes();
         }
 
+        // GET: api/Routes
+        [HttpGet, AllowAnonymous]
+        public IActionResult GetRoute()
+        {
+            return Ok(_routes);
+        }
+
         // GET: api/Routes/{origin}/{destiny}/{type}
-        [HttpGet("{origin}/{destiny}/{type}")]
+        [HttpGet("{origin}/{destiny}/{type}"), AllowAnonymous]
         public IActionResult GetRoutes([FromRoute] string origin, [FromRoute] string destiny, [FromRoute] char type)
         {
             try

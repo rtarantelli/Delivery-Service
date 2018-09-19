@@ -8,13 +8,11 @@ namespace DeliveryService.Data.Model
         [Key]
         public int PathId { get; set; }
 
-        [Required]
-        [ForeignKey("OriginId")]
+        [Required, ForeignKey("OriginId")]
         public Point Origin { get; set; }
         public int OriginId { get; set; }
 
-        [Required]
-        [ForeignKey("DestinyId")]
+        [Required, ForeignKey("DestinyId")]
         public Point Destiny { get; set; }
         public int DestinyId { get; set; }
     }

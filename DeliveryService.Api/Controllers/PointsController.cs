@@ -1,5 +1,6 @@
 ﻿using DeliveryService.Data.Interface;
 using DeliveryService.Data.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Linq;
 namespace DeliveryService.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize(Roles = "Administrator")]
     public class PointsController : ControllerBase
     {
         private readonly IPointRepository _pointRepository;
@@ -18,7 +19,7 @@ namespace DeliveryService.Api.Controllers
         }
 
         // GET: api/Points
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public IActionResult GetPoints()
         {
             try
@@ -32,7 +33,7 @@ namespace DeliveryService.Api.Controllers
         }
 
         // GET: api/Points/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), AllowAnonymous]
         public IActionResult GetPoint([FromRoute] int id)
         {
             try

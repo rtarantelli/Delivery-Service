@@ -1,5 +1,6 @@
 ﻿using DeliveryService.Data.Interface;
 using DeliveryService.Data.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Linq;
 namespace DeliveryService.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize(Roles = "Administrator")]
     public class PathsController : ControllerBase
     {
         private readonly IPathRepository _pathRepository;
@@ -21,7 +22,7 @@ namespace DeliveryService.Api.Controllers
         }
 
         // GET: api/Paths
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public IActionResult GetPaths()
         {
             try
@@ -43,7 +44,7 @@ namespace DeliveryService.Api.Controllers
         }
 
         // GET: api/Paths/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), AllowAnonymous]
         public IActionResult GetPath([FromRoute] int id)
         {
             try
