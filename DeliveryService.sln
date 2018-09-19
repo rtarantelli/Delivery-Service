@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryService.Api", "DeliveryService.Api\DeliveryService.Api.csproj", "{FDE6A192-BE6A-4A35-8079-97BBFA64FFD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryService.Api", "DeliveryService.Api\DeliveryService.Api.csproj", "{FDE6A192-BE6A-4A35-8079-97BBFA64FFD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryService.Data", "DeliveryService.Data\DeliveryService.Data.csproj", "{86A6BB23-EFAE-45DC-A241-4DC309B7EA9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryService.Data", "DeliveryService.Data\DeliveryService.Data.csproj", "{86A6BB23-EFAE-45DC-A241-4DC309B7EA9D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86F9E540-11A5-4F46-A540-DB5E12F3AB5E}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryService.Data.Tests", "DeliveryService.Data.Tests\DeliveryService.Data.Tests.csproj", "{72B0FF83-EE40-4B4B-9B8D-545663538445}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryService.Tests", "DeliveryService.Tests\DeliveryService.Tests.csproj", "{086C6EDB-2987-4CF8-B189-790AAB98379E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{86A6BB23-EFAE-45DC-A241-4DC309B7EA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86A6BB23-EFAE-45DC-A241-4DC309B7EA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86A6BB23-EFAE-45DC-A241-4DC309B7EA9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72B0FF83-EE40-4B4B-9B8D-545663538445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72B0FF83-EE40-4B4B-9B8D-545663538445}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72B0FF83-EE40-4B4B-9B8D-545663538445}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72B0FF83-EE40-4B4B-9B8D-545663538445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{086C6EDB-2987-4CF8-B189-790AAB98379E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086C6EDB-2987-4CF8-B189-790AAB98379E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086C6EDB-2987-4CF8-B189-790AAB98379E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086C6EDB-2987-4CF8-B189-790AAB98379E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

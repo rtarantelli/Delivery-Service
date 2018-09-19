@@ -1,5 +1,6 @@
 ﻿using DeliveryService.Data.Interface;
 using DeliveryService.Data.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 namespace DeliveryService.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController, Authorize(Roles = "Administrator")]
+    [ApiController, Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PathsController : ControllerBase
     {
         private readonly IPathRepository _pathRepository;

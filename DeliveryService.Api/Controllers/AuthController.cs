@@ -63,7 +63,7 @@ namespace DeliveryService.Api.Controllers
             public string Role { get; set; }
         }
 
-        private class UserModel
+        public class UserModel
         {
             public string Name { get; set; }
             public string Role { get; set; }

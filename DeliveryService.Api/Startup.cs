@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DeliveryService.Api
@@ -72,6 +74,8 @@ namespace DeliveryService.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+
+            services.AddAuthorization();
         }
 
         private static void ConfigureServiceContext(IServiceCollection services)
@@ -98,15 +102,28 @@ namespace DeliveryService.Api
                         Name = "Renato Tarantelli",
                         Url = "https://www.linkedin.com/in/renatotarantelli/"
                     },
-                    Description = "Management of best time or cost to delivery",
+                    Description = "Management of the best time or the best cost for a delivery service.",
                     License = new License()
                     {
-                        Name = "Apache License",
-                        Url = "http://www.apache.org/licenses/"
+                        Name = "MIT - Open Source Initiative",
+                        Url = "https://opensource.org/licenses/MIT"
                     },
-                    Title = "Delivery Service API",
-                    TermsOfService = "None",
-                    Version = "v1"
+                    Title = "Delivery Service API"
+                });
+                c.AddSecurityDefinition("Bearer",
+                    new ApiKeyScheme
+                    {
+                        In = "header",
+                        Description = "Please enter JWT with Bearer into field",
+                        Name = "Key",
+                        Type = "apiKey"
+                    });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    {
+                        "Bearer",
+                        Enumerable.Empty<string>()
+                    }
                 });
             });
         }
