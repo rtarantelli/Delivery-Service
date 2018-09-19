@@ -4,8 +4,7 @@ This project can be run using Visual Studio 2017 or later, or VSCode.
 
 Initial data, as described in the exercise, was added in memory using EF Core InMemoryDatabase.
 
-Swagger can be used to test, or if you prefer to use a client for HTTP requests, such as: Postman and SoapUI.
-
+Swagger can be used for testing, discovering models and all available services, or, if you prefer, can use a client for HTTP requests, such as Postman and SoapUI.
 ***
 ## Infos
 
@@ -30,4 +29,4 @@ Services have been implemented for the following objects:
 
 >- Swashbuckle.AspNetCore 3.0
 >- Newtonsoft.Json 11.0
->- FluentValidation 8.0
+>- FluentAssertions 5.4
