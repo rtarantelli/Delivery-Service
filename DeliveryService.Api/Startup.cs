@@ -1,4 +1,5 @@
-﻿using DeliveryService.Data;
+﻿using DeliveryService.Api.Middleware;
+using DeliveryService.Data;
 using DeliveryService.Data.Interface;
 using DeliveryService.Data.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -45,6 +46,12 @@ namespace DeliveryService.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseHttpStatusCodeExceptionMiddleware();
+            }
+            else
+            {
+                app.UseHttpStatusCodeExceptionMiddleware();
+                app.UseExceptionHandler();
             }
 
             app.UseAuthentication();

@@ -40,7 +40,7 @@ namespace DeliveryService.Tests
         [InlineData(9)]
         public void ShouldBeCountAsTotal(int total)
         {
-            var items = _context.Points.Count();
+            int items = _context.Points.Count();
 
             items.Should().Be(total, $"Total should be {total}");
         }
