@@ -7,49 +7,62 @@ Initial data, as described in the exercise, was added in memory using EF Core In
 Swagger can be used for testing, discovering models and all available services, or, if you prefer, can use a client for HTTP requests, such as Postman and SoapUI.
 ___
 
-## Information
+# Information
 
 Brief description of the services and their methods developed for this application example.
 
-### Auth
+## Auth
 generate authorization token, used to access specific methods
 
 **POST** /api/Auth
 ___
 
-### Paths
+
+## Paths
 describes the cost and time from one point to another.
 
 **GET** /api/Paths
+
 **POST** /api/Paths
+
 **GET** /api/Paths/{id}
+
 **PUT** /api/Paths/{id}
+
 **DELETE** /api/Paths/{id}
 ___
 
-### Points
+
+## Points
 information for each storage point.
 
 **GET** /api/Points
+
 **POST** /api/Points
+
 **GET** /api/Points/{id}
+
 **PUT** /api/Points/{id}
+
 **DELETE** /api/Points/{id}
 ___
 
-### Routes
+
+## Routes
 describes the set of paths, which constitute a route.
 
 **GET** /api/Routes
+
 **GET** /api/Routes/{origin}/{destiny}/{type}
 ___
 
-## Models
+
+# Models
 ```
 Point
 {
-	pointId	integer($int32)
-	name*	string maxLength: 1
+	pointId		integer($int32)
+	name*		string maxLength: 1
 }
 
 Path
@@ -77,8 +90,10 @@ Login
 	role		string
 }
 ```
+___
 
-## Technologies/patterns
+
+# Technologies/patterns
 
 >* RESTFul API
 >* Repository pattern
@@ -89,7 +104,7 @@ Login
 >* Entity Framework Core 2.1
 >* XUnit Core 2.1
 
-## Third libraries
+# Third libraries
 
 >* Swashbuckle.AspNetCore 3.0
 >* Newtonsoft.Json 11.0

@@ -12,12 +12,12 @@ using Xunit;
 
 namespace DeliveryService.Tests
 {
-    public class UnitTestPoints
+    public class PointsControllerTests
     {
         private readonly DeliveryServiceContext _context;
         private readonly IPointRepository _pointRepository;
 
-        public UnitTestPoints()
+        public PointsControllerTests()
         {
             ServiceProvider serviceProvider = CreateServiceProvider();
 

@@ -13,14 +13,14 @@ using Xunit;
 
 namespace DeliveryService.Tests
 {
-    public class UnitTestRoutes
+    public class RoutesControllerTests
     {
         private readonly DeliveryServiceContext _context;
         private readonly IPathRepository _pathRepository;
         private readonly IPointRepository _pointRepository;
         private readonly IRouteRepository _routeRepository;
 
-        public UnitTestRoutes()
+        public RoutesControllerTests()
         {
             ServiceProvider serviceProvider = CreateServiceProvider();
 
