@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/rtarantelli/DeliveryService/_apis/build/status/rtarantelli.DeliveryService)](https://dev.azure.com/rtarantelli/DeliveryService/_build/latest?definitionId=3)
+
 # Introduction
 
 This project can be run using Visual Studio 2017 or later, or VSCode.
