@@ -30,7 +30,7 @@ namespace DeliveryService.Api.Controllers
 
         // GET: api/Routes
         [HttpGet, AllowAnonymous]
-        public IActionResult GetRoute()
+        public IActionResult GetRoutes()
         {
             return Ok(_routes);
         }
