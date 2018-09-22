@@ -7,7 +7,7 @@ namespace DeliveryService.Data.Model
         [Key]
         public int PointId { get; set; }
 
-        [Required]
+        [Required, MaxLength(1)]
         public string Name { get; set; }
     }
 }

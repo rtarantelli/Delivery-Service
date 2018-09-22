@@ -5,14 +5,87 @@ This project can be run using Visual Studio 2017 or later, or VSCode.
 Initial data, as described in the exercise, was added in memory using EF Core InMemoryDatabase.
 
 Swagger can be used for testing, discovering models and all available services, or, if you prefer, can use a client for HTTP requests, such as Postman and SoapUI.
-***
-## Infos
+___
 
-Services have been implemented for the following objects:
+## Information
 
->- Point - information for each point
->- Path - describes the cost and time from one point to another
->- Route - describes a set paths
+Brief description of the services and their methods developed for this application example.
+
+### Auth
+> generate authorization token, used to access specific methods
+
+`POST /api/Auth`
+___
+
+### Paths
+> describes the cost and time from one point to another.
+
+`GET /api/Paths`
+
+`POST /api/Paths`
+
+`GET /api/Paths/{id}`
+
+`PUT /api/Paths/{id}`
+
+`DELETE /api/Paths/{id}`
+___
+
+### Points
+> information for each storage point.
+
+`GET /api/Points`
+
+`POST /api/Points`
+
+`GET /api/Points/{id}`
+
+`PUT /api/Points/{id}`
+
+`DELETE /api/Points/{id}`
+___
+
+### Routes
+> describes the set of paths, which constitute a route.
+
+`GET /api/Routes`
+
+`GET /api/Routes/{origin}/{destiny}/{type}`
+___
+
+## Models
+```
+Route
+{
+	routeId	integer($int32)
+	cost*	integer($int32)
+	time*	integer($int32)
+	pathId*	integer($int32)
+	path*	Path
+	{
+		pathId	integer($int32)
+		origin*	Point
+		{
+			pointId	integer($int32)
+			name*	string maxLength: 1
+		}
+		originId	integer($int32)
+		destiny*	Point
+		{
+			pointId	integer($int32)
+			name*	string maxLength: 1
+		}
+		destinyId	integer($int32)
+	}
+}
+
+Login
+{
+	username	string
+	password	string
+	role	string
+}
+```
 
 ## Technologies/patterns
 

@@ -19,11 +19,11 @@ namespace DeliveryService.Api.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        public IActionResult CreateToken([FromBody] LoginModel login)
+        public IActionResult CreateToken([FromBody] Login login)
         {
             try
             {
-                UserModel user = Authenticate(login);
+                User user = Authenticate(login);
 
                 if (user != null)
                 {
@@ -38,7 +38,7 @@ namespace DeliveryService.Api.Controllers
             }
         }
 
-        private string BuildToken(UserModel user)
+        private string BuildToken(User user)
         {
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -53,20 +53,21 @@ namespace DeliveryService.Api.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private UserModel Authenticate(LoginModel login) =>
-            new UserModel { Name = login.Username, Role = login.Role };
+        private User Authenticate(Login login) =>
+            new User { Name = login.Username, Role = login.Role };
 
-        public class LoginModel
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
-            public string Role { get; set; }
-        }
+    }
 
-        public class UserModel
-        {
-            public string Name { get; set; }
-            public string Role { get; set; }
-        }
+    public class Login
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+    }
+
+    public class User
+    {
+        public string Name { get; set; }
+        public string Role { get; set; }
     }
 }

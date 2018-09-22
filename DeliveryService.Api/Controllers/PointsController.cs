@@ -81,7 +81,7 @@ namespace DeliveryService.Api.Controllers
         [HttpPost]
         public IActionResult PostPoint([FromBody] Point point)
         {
-            if (_pointRepository.Find(p => p == point).Any())
+            if (_pointRepository.Find(p => p.Name == point.Name).Any())
             {
                 return BadRequest();
             }
