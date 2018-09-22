@@ -72,14 +72,14 @@ namespace DeliveryService.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult PutPath([FromRoute] int id, [FromBody] Path path)
         {
-            if (id != path.PathId || _pathRepository.GetById(id) != null)
+            if (id != path.PathId || _pathRepository.GetById(id) == null)
             {
                 return BadRequest();
             }
 
             try
             {
-                _pathRepository.Create(path);
+                _pathRepository.Update(path);
                 return Accepted();
             }
             catch (Exception ex)
@@ -100,7 +100,7 @@ namespace DeliveryService.Api.Controllers
             try
             {
                 _pathRepository.Create(path);
-                return Accepted();
+                return CreatedAtAction(path.PathId.ToString(), path);
             }
             catch (Exception ex)
             {

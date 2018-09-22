@@ -23,13 +23,10 @@ namespace DeliveryService.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Point>().HasKey(p => p.PointId);
-            modelBuilder.Entity<Point>().HasAlternateKey(p => p.Name);
 
             modelBuilder.Entity<Path>().HasKey(p => p.PathId);
-            modelBuilder.Entity<Path>().HasAlternateKey(p => new { p.DestinyId, p.OriginId });
 
             modelBuilder.Entity<Route>().HasKey(r => r.RouteId);
-            modelBuilder.Entity<Route>().HasAlternateKey(r => r.PathId);
         }
     }
 }

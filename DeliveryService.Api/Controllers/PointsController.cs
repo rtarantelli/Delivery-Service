@@ -61,15 +61,15 @@ namespace DeliveryService.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult PutPoint([FromRoute] int id, [FromBody] Point point)
         {
-            if (id != point.PointId || _pointRepository.GetById(id) != null)
+            if (id != point.PointId || _pointRepository.GetById(id) == null)
             {
                 return BadRequest();
             }
 
             try
             {
-                _pointRepository.Create(point);
-                return Accepted();
+                _pointRepository.Update(point);
+                return Accepted(point);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace DeliveryService.Api.Controllers
             try
             {
                 _pointRepository.Create(point);
-                return Accepted();
+                return CreatedAtAction(point.PointId.ToString(), point);
             }
             catch (Exception ex)
             {

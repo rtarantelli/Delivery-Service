@@ -21,8 +21,9 @@ namespace DeliveryService.Data
             Point g = new Point { Name = "G" };
             Point h = new Point { Name = "H" };
             Point i = new Point { Name = "I" };
+            Point j = new Point { Name = "J" };
 
-            List<Point> points = new List<Point>() { a, b, c, d, e, f, g, h, i };
+            List<Point> points = new List<Point>() { a, b, c, d, e, f, g, h, i, j };
             context.Points.AddRange(points);
 
             Path AToC = new Path { Origin = a, Destiny = c };

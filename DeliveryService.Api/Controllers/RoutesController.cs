@@ -77,13 +77,13 @@ namespace DeliveryService.Api.Controllers
         private void GetResultByType(char type, List<Collection> collections)
         {
             if (type == 'C')
-                Routes = collections.OrderBy(a => a.TotalCost()).FirstOrDefault().Routes;
+                Routes = collections.OrderBy(a => a.TotalCost()).FirstOrDefault()?.Routes;
 
             if (type == 'T')
-                Routes = collections.OrderBy(a => a.TotalTime()).FirstOrDefault().Routes;
+                Routes = collections.OrderBy(a => a.TotalTime()).FirstOrDefault()?.Routes;
 
             if (type == 'S')
-                Routes = collections.OrderBy(a => a.Routes.Count).FirstOrDefault().Routes;
+                Routes = collections.OrderBy(a => a.Routes.Count).FirstOrDefault()?.Routes;
         }
 
         private List<Route> GetRoutesWithOriginAndDestiny(string origin, string destiny) =>
