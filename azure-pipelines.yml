@@ -10,7 +10,7 @@ variables:
 steps:
 - script: |
     dotnet build --configuration $(buildConfiguration)
-    dotnet test --configuration $(buildConfiguration) --logger trx
+    dotnet test --configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
 - task: PublishTestResults@2
   inputs:

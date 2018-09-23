@@ -27,7 +27,7 @@ namespace DeliveryService.Api.Controllers
 
                 if (user != null)
                 {
-                    return Ok(new { token = BuildToken(user) });
+                    return Ok(BuildToken(user));
                 }
 
                 return Unauthorized();

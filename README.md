@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/rtarantelli/DeliveryService/_apis/build/status/rtarantelli.DeliveryService)](https://dev.azure.com/rtarantelli/DeliveryService/_build/latest?definitionId=3)
+[![Build Status](https://dev.azure.com/rtarantelli/DeliveryService/_apis/build/status/rtarantelli.DeliveryService)](https://dev.azure.com/rtarantelli/DeliveryService/_build/latest?definitionId=3) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 # Introduction
 
@@ -7,17 +7,17 @@ This project can be run using Visual Studio 2017 or later, or VSCode.
 Initial data, as described in the exercise, was added in memory using EF Core InMemoryDatabase.
 
 Swagger can be used for testing, discovering models and all available services, or, if you prefer, can use a client for HTTP requests, such as Postman and SoapUI.
-___
+
 
 # Information
 
 Brief description of the services and their methods developed for this application example.
 
+
 ## Auth
 generate authorization token, used to access specific methods
 
 **POST** /api/Auth
-___
 
 
 ## Paths
@@ -32,7 +32,6 @@ describes the cost and time from one point to another.
 **PUT** /api/Paths/{id}
 
 **DELETE** /api/Paths/{id}
-___
 
 
 ## Points
@@ -47,7 +46,6 @@ information for each storage point.
 **PUT** /api/Points/{id}
 
 **DELETE** /api/Points/{id}
-___
 
 
 ## Routes
@@ -56,7 +54,6 @@ describes the set of paths, which constitute a route.
 **GET** /api/Routes
 
 **GET** /api/Routes/{origin}/{destiny}/{type}
-___
 
 
 # Models
@@ -92,10 +89,9 @@ Login
 	role		string
 }
 ```
-___
 
 
-# Technologies/patterns
+# Technologies/patterns used
 
 >* RESTFul API
 >* Repository pattern
@@ -111,3 +107,12 @@ ___
 >* Swashbuckle.AspNetCore 3.0
 >* Newtonsoft.Json 11.0
 >* FluentAssertions 5.4
+>* coverlet.msbuild 3.2
+
+# Issues & Contributions
+
+If you find a bug or have a feature request, please report them at this repository's issues section. Contributions are highly welcome, however except for very small changes, kindly file an issue and let's have a discussion before you open a pull request.
+
+# License
+
+This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.

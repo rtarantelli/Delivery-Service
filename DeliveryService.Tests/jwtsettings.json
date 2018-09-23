@@ -1,0 +1,6 @@
+{
+  "Jwt": {
+    "Key": "MyVerySecretApiKey",
+    "Issuer": "https://localhost:44311/"
+  }
+}

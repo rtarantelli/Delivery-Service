@@ -263,3 +263,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# Covarege results
+coverage.info
+coverage.json
+coverage.cobertura.xml
+coverage.opencover.xml
