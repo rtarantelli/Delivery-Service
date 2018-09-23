@@ -24,7 +24,6 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/DeliveryService.Tests/coverage.cobertura.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/DeliveryService.Tests/'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Build Artifacts'
