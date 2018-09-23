@@ -14,13 +14,17 @@ steps:
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
 
 - task: PublishTestResults@2
+  displayName: 'Publish Test Result'
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
 
 - task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: $(System.DefaultWorkingDirectory)/DeliveryService.Tests/coverage.cobertura.xml
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/DeliveryService.Tests/coverage.cobertura.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/DeliveryService.Tests/'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
