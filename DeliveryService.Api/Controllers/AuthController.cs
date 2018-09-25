@@ -54,7 +54,7 @@ namespace DeliveryService.Api.Controllers
         }
 
         private User Authenticate(Login login) =>
-            new User { Name = login.Username, Role = login.Role };
+            (login?.Username != null) ? new User { Name = login.Username, Role = login.Role } : null;
 
     }
 

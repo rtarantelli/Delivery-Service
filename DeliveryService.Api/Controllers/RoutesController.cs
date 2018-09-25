@@ -32,6 +32,11 @@ namespace DeliveryService.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IActionResult GetRoutes()
         {
+            if (_routes?.Any() == null)
+            {
+                return NotFound();
+            }
+
             return Ok(_routes);
         }
 
@@ -91,8 +96,9 @@ namespace DeliveryService.Api.Controllers
 
         private List<Route> BuildRutes()
         {
-            List<Route> routes = _routeRepository.GetAll().ToList();
-            routes.ForEach(route =>
+            List<Route> routes = _routeRepository?.GetAll().ToList();
+
+            routes?.ForEach(route =>
             {
                 Path path = _pathRepository.GetById(route.PathId);
                 path.Origin = _pointRepository.GetById(path.OriginId);

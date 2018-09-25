@@ -47,27 +47,56 @@ namespace DeliveryService.Tests
             return serviceProvider;
         }
 
-        [Fact]
-        public void Routes_Get_All()
-        {
-            RoutesController controller = new RoutesController(_pathRepository, _pointRepository, _routeRepository);
-
-            IActionResult result = controller.GetRoutes();
-
-            List<Route> routes = ((ObjectResult)(result.Should().Subject)).Value.As<List<Route>>();
-
-            routes.Should().HaveCountGreaterThan(0, "Routes total should be greater than 0");
-        }
-
         [Theory]
         [InlineData(200)]
-        public void Routes_Get_All_StatusCode(int status)
+        public void Routes_Get_All_StatusCode_200(int status)
         {
             RoutesController controller = new RoutesController(_pathRepository, _pointRepository, _routeRepository);
 
             IActionResult result = controller.GetRoutes();
 
             int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(404)]
+        public void Routes_Get_All_StatusCode_404(int status)
+        {
+            IRouteRepository routeRepository = null;
+            RoutesController controller = new RoutesController(_pathRepository, _pointRepository, routeRepository);
+
+            IActionResult result = controller.GetRoutes();
+
+            int? statusCode = ((NotFoundResult)(result.Should().Subject)).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(200)]
+        public void Routes_Get_Id_StatusCode_200(int status)
+        {
+            RoutesController controller = new RoutesController(_pathRepository, _pointRepository, _routeRepository);
+
+            IActionResult result = controller.GetRoutes("A", "A", 'A');
+
+            int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(400)]
+        public void Routes_Get_Id_StatusCode_400(int status)
+        {
+            IRouteRepository routeRepository = null;
+            RoutesController controller = new RoutesController(_pathRepository, _pointRepository, routeRepository);
+
+            IActionResult result = controller.GetRoutes("A", "A", 'A');
+
+            int? statusCode = ((BadRequestObjectResult)(result.Should().Subject)).StatusCode;
 
             statusCode.Should().Be(status, $"StatusCode should be {status}");
         }

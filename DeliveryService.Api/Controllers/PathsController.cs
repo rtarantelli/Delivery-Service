@@ -72,14 +72,15 @@ namespace DeliveryService.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult PutPath([FromRoute] int id, [FromBody] Path path)
         {
-            if (id != path.PathId || _pathRepository.GetById(id) == null)
-            {
-                return BadRequest();
-            }
-
             try
             {
+                if (id != path.PathId || _pathRepository.GetById(id) == null)
+                {
+                    return BadRequest();
+                }
+
                 _pathRepository.Update(path);
+
                 return Accepted();
             }
             catch (Exception ex)
@@ -92,13 +93,13 @@ namespace DeliveryService.Api.Controllers
         [HttpPost]
         public IActionResult PostPath([FromBody] Path path)
         {
-            if (_pathRepository.Find(p => p == path).Any())
-            {
-                return BadRequest();
-            }
-
             try
             {
+                if (_pathRepository.Find(p => p == path).Any())
+                {
+                    return BadRequest();
+                }
+
                 _pathRepository.Create(path);
                 return CreatedAtAction(path.PathId.ToString(), path);
             }
@@ -112,15 +113,15 @@ namespace DeliveryService.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePath([FromRoute] int id)
         {
-            Path path = _pathRepository.GetById(id);
-
-            if (path == null)
-            {
-                return NotFound();
-            }
-
             try
             {
+                Path path = _pathRepository.GetById(id);
+
+                if (path == null)
+                {
+                    return NotFound();
+                }
+
                 _pathRepository.Delete(path);
                 return Accepted();
             }

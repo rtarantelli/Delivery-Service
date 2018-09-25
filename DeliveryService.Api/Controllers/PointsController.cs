@@ -81,13 +81,13 @@ namespace DeliveryService.Api.Controllers
         [HttpPost]
         public IActionResult PostPoint([FromBody] Point point)
         {
-            if (_pointRepository.Find(p => p.Name == point.Name).Any())
-            {
-                return BadRequest();
-            }
-
             try
             {
+                if (_pointRepository.Find(p => p.Name == point.Name).Any())
+                {
+                    return BadRequest();
+                }
+
                 _pointRepository.Create(point);
                 return CreatedAtAction(point.PointId.ToString(), point);
             }
@@ -101,16 +101,17 @@ namespace DeliveryService.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePoint([FromRoute] int id)
         {
-            Point point = _pointRepository.GetById(id);
-
-            if (point == null)
-            {
-                return NotFound();
-            }
-
             try
             {
+                Point point = _pointRepository.GetById(id);
+
+                if (point == null)
+                {
+                    return NotFound();
+                }
+
                 _pointRepository.Delete(point);
+
                 return Accepted();
             }
             catch (Exception ex)

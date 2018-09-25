@@ -45,8 +45,9 @@ namespace DeliveryService.Tests
             return serviceProvider;
         }
 
-        [Fact]
-        public void Paths_Get_All()
+        [Theory]
+        [InlineData(200)]
+        public void Paths_Get_All_StatusCode_200(int status)
         {
             PathsController controller = new PathsController(_pathRepository, _pointRepository);
 
@@ -54,24 +55,27 @@ namespace DeliveryService.Tests
 
             int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
 
-            statusCode.Should().Be(200, "StatusCode should be 200");
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
         [Theory]
-        [InlineData(1)]
-        public void Paths_Get_Specific(int id)
+        [InlineData(400)]
+        public void Paths_Get_All_StatusCode_400(int status)
         {
-            PathsController controller = new PathsController(_pathRepository, _pointRepository);
+            IPathRepository pathRepository = null;
+            IPointRepository pointRepository = null;
+            PathsController controller = new PathsController(pathRepository, pointRepository);
 
-            IActionResult result = controller.GetPath(id);
+            IActionResult result = controller.GetPaths();
 
-            Path path = ((ObjectResult)(result.Should().Subject)).Value.As<Path>();
+            int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
 
-            path.PathId.Should().Be(id, $"Path.PathId should be {id}");
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
-        [Fact]
-        public void Paths_Get_Specific_StatusCode()
+        [Theory]
+        [InlineData(200)]
+        public void Paths_Get_Id_StatusCode_200(int status)
         {
             PathsController controller = new PathsController(_pathRepository, _pointRepository);
 
@@ -79,12 +83,40 @@ namespace DeliveryService.Tests
 
             int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
 
-            statusCode.Should().Be(200, "StatusCode should be 200");
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(400)]
+        public void Paths_Get_Id_StatusCode_400(int status)
+        {
+            IPathRepository pathRepository = null;
+            IPointRepository pointRepository = null;
+            PathsController controller = new PathsController(pathRepository, pointRepository);
+
+            IActionResult result = controller.GetPath(1);
+
+            int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(404)]
+        public void Paths_Get_Id_StatusCode_404(int status)
+        {
+            PathsController controller = new PathsController(_pathRepository, _pointRepository);
+
+            IActionResult result = controller.GetPath(100);
+
+            int? statusCode = ((NotFoundResult)(result.Should().Subject)).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
         [Theory]
         [InlineData(201)]
-        public void Paths_Add_StatusCode(int status)
+        public void Paths_Add_StatusCode_201(int status)
         {
             PathsController controller = new PathsController(_pathRepository, _pointRepository);
 
@@ -102,10 +134,13 @@ namespace DeliveryService.Tests
         }
 
         [Theory]
-        [InlineData(12)]
-        public void Paths_Add_Result(int id)
+        [InlineData(400)]
+        public void Paths_Add_StatusCode_400(int status)
         {
-            PathsController controller = new PathsController(_pathRepository, _pointRepository);
+            IPathRepository pathRepository = null;
+            IPointRepository pointRepository = null;
+
+            PathsController controller = new PathsController(pathRepository, pointRepository);
 
             Path path = new Path()
             {
@@ -115,14 +150,14 @@ namespace DeliveryService.Tests
 
             IActionResult result = controller.PostPath(path);
 
-            path = ((ObjectResult)(result.Should().Subject)).Value.As<Path>();
+            int? statusCode = ((ObjectResult)(result.Should().Subject)).StatusCode;
 
-            path.PathId.Should().Be(id, $"Path.PathId should be {id}");
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
         [Theory]
         [InlineData(202)]
-        public void Paths_Update_StatusCode(int status)
+        public void Paths_Update_StatusCode_202(int status)
         {
             PathsController controller = new PathsController(_pathRepository, _pointRepository);
 
@@ -142,18 +177,54 @@ namespace DeliveryService.Tests
         }
 
         [Theory]
+        [InlineData(400)]
+        public void Paths_Update_StatusCode_400(int status)
+        {
+            IPathRepository pathRepository = null;
+            IPointRepository pointRepository = null;
+
+            PathsController controller = new PathsController(pathRepository, pointRepository);
+
+            Path path = new Path()
+            {
+                Destiny = new Point() { Name = "A" },
+                Origin = new Point() { Name = "B" }
+            };
+
+            IActionResult actionResult = controller.PutPath(path.PathId, path);
+
+            int? statusCode = ((BadRequestObjectResult)(actionResult.Should().Subject)).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
         [InlineData(202)]
-        public void Paths_Delete(int status)
+        public void Paths_Delete_StatusCode_202(int status)
         {
             PathsController controller = new PathsController(_pathRepository, _pointRepository);
 
-            Path path = ((ObjectResult)controller.GetPath(1)).Value.As<Path>();
-
-            IActionResult actionResult = controller.DeletePath(path.PathId);
+            IActionResult actionResult = controller.DeletePath(1);
 
             int? statusCode = ((ObjectResult)actionResult.Should().Subject).StatusCode;
 
             statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
+
+        [Theory]
+        [InlineData(400)]
+        public void Paths_Delete_StatusCode_400(int status)
+        {
+            IPathRepository pathRepository = null;
+            IPointRepository pointRepository = null;
+            PathsController controller = new PathsController(pathRepository, pointRepository);
+
+            IActionResult actionResult = controller.DeletePath(1);
+
+            int? statusCode = ((ObjectResult)actionResult.Should().Subject).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
     }
 }

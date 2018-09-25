@@ -42,7 +42,7 @@ namespace DeliveryService.Tests
 
         [Theory]
         [InlineData(200)]
-        public void Points_Get_All_StatusCode(int status)
+        public void Points_Get_All_StatusCode_200(int status)
         {
             PointsController controller = new PointsController(_pointRepository);
 
@@ -53,36 +53,63 @@ namespace DeliveryService.Tests
             actionResult.Should().Be(status, $"StatusCode should be {status}");
         }
 
-        [Fact]
-        public void Points_Get_Specific_StatusCode()
+        [Theory]
+        [InlineData(400)]
+        public void Points_Get_All_StatusCode_400(int status)
+        {
+            IPointRepository repository = null;
+            PointsController controller = new PointsController(repository);
+
+            IActionResult result = controller.GetPoints();
+
+            int? actionResult = ((ObjectResult)result.Should().Subject).StatusCode;
+
+            actionResult.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(200)]
+        public void Points_Get_Id_StatusCode_200(int status)
         {
             PointsController controller = new PointsController(_pointRepository);
 
             IActionResult result = controller.GetPoint(1);
 
-            int? actionResult = ((ObjectResult)result.Should().Subject).StatusCode;
+            int? statusCode = ((OkObjectResult)result.Should().Subject).StatusCode;
 
-            actionResult.Should().Be(200, $"StatusCode should be 200");
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
         [Theory]
-        [InlineData(1)]
-        public void Points_Get_Specific(int id)
+        [InlineData(400)]
+        public void Points_Get_Id_StatusCode_400(int status)
+        {
+            IPointRepository pointRepository = null;
+            PointsController controller = new PointsController(pointRepository);
+
+            IActionResult result = controller.GetPoint(1);
+
+            int? statusCode = ((BadRequestObjectResult)result.Should().Subject).StatusCode;
+
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(404)]
+        public void Points_Get_Id_StatusCode_404(int status)
         {
             PointsController controller = new PointsController(_pointRepository);
 
-            IActionResult result = controller.GetPoint(id);
+            IActionResult result = controller.GetPoint(100);
 
-            OkObjectResult actionResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            int statusCode = ((NotFoundResult)result.Should().Subject).StatusCode;
 
-            Point point = actionResult.Value.Should().BeAssignableTo<Point>().Subject;
-
-            point.PointId.Should().Be(id, $"Point.PointId should be {id}");
+            statusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
         [Theory]
         [InlineData(201)]
-        public void Points_Add_StatusCode(int status)
+        public void Points_Add_StatusCode_201(int status)
         {
             PointsController controller = new PointsController(_pointRepository);
 
@@ -96,25 +123,24 @@ namespace DeliveryService.Tests
         }
 
         [Theory]
-        [InlineData(11)]
-        public void Points_Add(int id)
+        [InlineData(400)]
+        public void Points_Add_StatusCode_400(int status)
         {
-            PointsController controller = new PointsController(_pointRepository);
+            IPointRepository pointRepository = null;
+            PointsController controller = new PointsController(pointRepository);
 
             Point newPoint = new Point() { Name = "K" };
 
             IActionResult result = controller.PostPoint(newPoint);
 
-            CreatedAtActionResult actionResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
+            BadRequestObjectResult actionResult = result.Should().BeOfType<BadRequestObjectResult>().Subject;
 
-            Point point = actionResult.Value.Should().BeAssignableTo<Point>().Subject;
-
-            point.PointId.Should().Be(id, $"Point.PointId should be {id}");
+            actionResult.StatusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
         [Theory]
         [InlineData(400)]
-        public void Points_Update_StatusCode(int status)
+        public void Points_Update_StatusCode_400(int status)
         {
             PointsController controller = new PointsController(_pointRepository);
 
@@ -127,8 +153,9 @@ namespace DeliveryService.Tests
             actionResult.StatusCode.Should().Be(status, $"StatusCode should be {status}");
         }
 
-        [Fact]
-        public void Points_Delete()
+        [Theory]
+        [InlineData(202)]
+        public void Points_Delete_StatusCode_202(int status)
         {
             PointsController controller = new PointsController(_pointRepository);
 
@@ -138,7 +165,38 @@ namespace DeliveryService.Tests
 
             AcceptedResult actionResult = result.Should().BeOfType<AcceptedResult>().Subject;
 
-            actionResult.StatusCode.Should().Be(202, $"Point cannot be deleted");
+            actionResult.StatusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(400)]
+        public void Points_Delete_StatusCode_400(int status)
+        {
+            IPointRepository pointRepository = null;
+            PointsController controller = new PointsController(pointRepository);
+
+            Point point = new Point() { Name = "K", PointId = 10 };
+
+            IActionResult result = controller.DeletePoint(point.PointId);
+
+            BadRequestObjectResult actionResult = result.Should().BeOfType<BadRequestObjectResult>().Subject;
+
+            actionResult.StatusCode.Should().Be(status, $"StatusCode should be {status}");
+        }
+
+        [Theory]
+        [InlineData(404)]
+        public void Points_Delete_StatusCode_404(int status)
+        {
+            PointsController controller = new PointsController(_pointRepository);
+
+            Point point = new Point() { Name = "K", PointId = 100 };
+
+            IActionResult result = controller.DeletePoint(point.PointId);
+
+            NotFoundResult actionResult = result.Should().BeOfType<NotFoundResult>().Subject;
+
+            actionResult.StatusCode.Should().Be(status, $"StatusCode should be {status}");
         }
     }
 }
