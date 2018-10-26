@@ -92,9 +92,9 @@ namespace DeliveryService.Api
 
         private static void ConfigureRepositoriesDependencyInjection(IServiceCollection services)
         {
-            services.AddTransient<IPointRepository, PointRepository>();
-            services.AddTransient<IPathRepository, PathRepository>();
-            services.AddTransient<IRouteRepository, RouteRepository>();
+            services.AddSingleton<IPointRepository, PointRepository>();
+            services.AddSingleton<IPathRepository, PathRepository>();
+            services.AddSingleton<IRouteRepository, RouteRepository>();
         }
 
         private static void ConfigureSwaggerGen(IServiceCollection services)

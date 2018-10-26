@@ -1,4 +1,5 @@
-[![Build Status](https://dev.azure.com/rtarantelli/DeliveryService/_apis/build/status/rtarantelli.DeliveryService)](https://dev.azure.com/rtarantelli/DeliveryService/_build/latest?definitionId=3) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build Status](https://dev.azure.com/rtarantelli/DeliveryService/_apis/build/status/rtarantelli.DeliveryService)](https://dev.azure.com/rtarantelli/DeliveryService/_build/latest?definitionId=3)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 # Introduction
 
